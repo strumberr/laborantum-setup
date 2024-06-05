@@ -43,6 +43,9 @@ PYTHON=$(which python3)
 # create virtual environment
 $PYTHON -m venv .laborantum_virtual_environment & show_spinner
 
+# try with normal python
+python -m venv .laborantum_virtual_environment & show_spinner
+
 wait $!
 echo -e "${GREEN}successfully created virtual environment.${NC}"
 
@@ -52,9 +55,15 @@ echo -e "${GREEN}successfully created virtual environment.${NC}"
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     source .laborantum_virtual_environment/bin/activate
 
+    # give permission to run the script
+    chmod +x ./run.sh
+
 # MacOS
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     source .laborantum_virtual_environment/bin/activate
+
+    # give permission to run the script
+    chmod +x ./run.sh
 
 # Windows
 elif [[ "$OSTYPE" == "msys" ]]; then
@@ -185,9 +194,6 @@ wait $!
 echo -e "${GREEN}done.${NC}"
 
 echo -e "${BLUE}Virtual environment 'venv' created successfully. And all the requirements are installed.${NC}"
-
-# give permission to run the script
-chmod +x ./run.sh
 
 # Ask the user if they want to open VS Code
 read -p "Do you wish to open VS Code? (yes/no) " response
